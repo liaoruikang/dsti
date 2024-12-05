@@ -98,6 +98,12 @@ importers:
         specifier: workspace:^
         version: link:../../private/shared
 
+  packages/public/bstree:
+    dependencies:
+      '@dsti/shared':
+        specifier: workspace:^
+        version: link:../../private/shared
+
   packages/public/dsti:
     dependencies:
       '@dsti/avl':
