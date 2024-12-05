@@ -1,0 +1,39 @@
+{
+  "name": "dsti",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "description": "Javascript data structure tool library",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      },
+      "default": "./src/index.ts"
+    }
+  },
+  "keywords": [
+    "datastruct",
+    "dsti",
+    "stack",
+    "queue",
+    "linked-list",
+    "tree"
+  ],
+  "author": "Lrk",
+  "license": "MIT",
+  "dependencies": {
+    "@dsti/avl": "workspace:^",
+    "@dsti/linkedlist": "workspace:^",
+    "@dsti/queue": "workspace:^",
+    "@dsti/stack": "workspace:^"
+  }
+}

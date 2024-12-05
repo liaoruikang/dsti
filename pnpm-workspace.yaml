@@ -1,0 +1,3 @@
+packages:
+  - 'packages/private/*'
+  - 'packages/public/*'

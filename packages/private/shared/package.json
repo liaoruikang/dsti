@@ -1,0 +1,8 @@
+{
+  "name": "@dsti/shared",
+  "private": true,
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "author": "Lrk",
+  "license": "MIT"
+}
