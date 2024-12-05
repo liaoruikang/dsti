@@ -16,10 +16,6 @@ export class BSNode<Key, T> {
     if (!parent) this.type = BSNodeType.ROOT;
   }
 
-  get depth(): number {
-    return 1 + Math.max(this.left?.depth ?? 0, this.right?.depth ?? 0);
-  }
-
   get prev() {
     let current = this.left;
     while (current?.right) current = current.right;

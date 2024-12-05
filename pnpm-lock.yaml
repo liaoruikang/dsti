@@ -103,9 +103,15 @@ importers:
 
   packages/public/bstree:
     dependencies:
+      '@dsti/queue':
+        specifier: workspace:^
+        version: link:../queue
       '@dsti/shared':
         specifier: workspace:^
         version: link:../../private/shared
+      '@dsti/stack':
+        specifier: workspace:^
+        version: link:../stack
 
   packages/public/dsti:
     dependencies:

@@ -1,5 +1,7 @@
 import { ContainerIterator } from '@dsti/shared';
 import { BSNode, BSNodeType } from './BSNode';
+import { Stack } from '@dsti/stack';
+import { Queue } from '@dsti/queue';
 
 export enum BSTraverseType {
   PREORDER,
@@ -37,7 +39,9 @@ export class BSTree<T, Key = number> extends ContainerIterator<Key, T> {
   }
 
   get depth() {
-    return this._root?.depth ?? 0;
+    let depth = 0;
+    this._order((_, __, d) => (depth = Math.max(depth, d)));
+    return depth;
   }
 
   get size() {
@@ -190,8 +194,8 @@ export class BSTree<T, Key = number> extends ContainerIterator<Key, T> {
 
   protected _preorder(callback: (value: T, key: Key) => void) {
     let current = this._root;
-    const stack: BSNode<Key, T>[] = [];
-    while (current || stack.length) {
+    const stack = new Stack<BSNode<Key, T>>();
+    while (current || stack.size) {
       if (current) {
         callback(current.value, current.key);
         stack.push(current);
@@ -205,8 +209,8 @@ export class BSTree<T, Key = number> extends ContainerIterator<Key, T> {
 
   protected _inorder(callback: (value: T, key: Key) => void) {
     let current = this._root;
-    const stack: BSNode<Key, T>[] = [];
-    while (current || stack.length) {
+    const stack = new Stack<BSNode<Key, T>>();
+    while (current || stack.size) {
       if (current) {
         stack.push(current);
         current = current.left;
@@ -220,14 +224,14 @@ export class BSTree<T, Key = number> extends ContainerIterator<Key, T> {
   protected _postorder(callback: (value: T, key: Key) => void) {
     let visited: BSNode<Key, T> | null = null;
     let current = this._root;
-    const stack: BSNode<Key, T>[] = [];
-    while (current || stack.length) {
+    const stack = new Stack<BSNode<Key, T>>();
+    while (current || stack.size) {
       if (current) {
         stack.push(current);
         current = current.left;
         continue;
       }
-      const node = stack[stack.length - 1];
+      const node = stack.top!;
       if (node.right && node.right !== visited) {
         current = node.right;
         continue;
@@ -240,14 +244,15 @@ export class BSTree<T, Key = number> extends ContainerIterator<Key, T> {
     }
   }
 
-  protected _order(callback: (value: T, key: Key) => void) {
+  protected _order(callback: (value: T, key: Key, depth: number) => void) {
     if (!this._root) return;
-    const queue: BSNode<Key, T>[] = [this._root];
-    while (queue.length) {
-      const node = queue.shift()!;
-      callback(node.value, node.key);
-      if (node.left) queue.push(node.left);
-      if (node.right) queue.push(node.right);
+    const queue = new Queue<[BSNode<Key, T>, number]>([[this._root, 1]]);
+
+    while (queue.size) {
+      const [node, depth] = queue.dequeue()!;
+      callback(node.value, node.key, depth);
+      if (node.left) queue.enqueue([node.left, depth + 1]);
+      if (node.right) queue.enqueue([node.right, depth + 1]);
     }
   }
 

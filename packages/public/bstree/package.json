@@ -27,7 +27,9 @@
   "author": "Lrk",
   "license": "MIT",
   "dependencies": {
-    "@dsti/shared": "workspace:^"
+    "@dsti/queue": "workspace:^",
+    "@dsti/shared": "workspace:^",
+    "@dsti/stack": "workspace:^"
   },
   "buildOptions": {
     "internal": [
