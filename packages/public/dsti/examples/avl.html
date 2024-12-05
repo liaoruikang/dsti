@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>avl tree example</title>
+  </head>
+  <body>
+    <script type="module">
+      import { AVLTree } from '../dist/index.mjs';
+      const arr = Array(10000)
+        .fill(0)
+        .map((_, i) => [Math.random() * 1000, i + 1]);
+
+      const avl = new AVLTree(arr);
+      console.log(avl);
+    </script>
+  </body>
+</html>

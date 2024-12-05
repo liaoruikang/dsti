@@ -94,6 +94,9 @@ importers:
 
   packages/public/avl:
     dependencies:
+      '@dsti/bstree':
+        specifier: workspace:^
+        version: link:../bstree
       '@dsti/shared':
         specifier: workspace:^
         version: link:../../private/shared
@@ -109,6 +112,9 @@ importers:
       '@dsti/avl':
         specifier: workspace:^
         version: link:../avl
+      '@dsti/bstree':
+        specifier: workspace:^
+        version: link:../bstree
       '@dsti/linkedlist':
         specifier: workspace:^
         version: link:../linkedlist

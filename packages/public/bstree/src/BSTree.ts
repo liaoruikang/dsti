@@ -23,10 +23,10 @@ type BSTreeArgs<Key, T> = Key extends number
     ];
 
 export class BSTree<T, Key = number> extends ContainerIterator<Key, T> {
-  private _root: BSNode<Key, T> | null = null;
-  private _comparer: BSComparer<Key>;
-  private _size = 0;
-  private _repeatable: boolean;
+  protected _root: BSNode<Key, T> | null = null;
+  protected _comparer: BSComparer<Key>;
+  protected _size = 0;
+  protected _repeatable: boolean;
 
   constructor(...[iterable, comparer, repeatable]: BSTreeArgs<Key, T>) {
     super();
@@ -164,20 +164,20 @@ export class BSTree<T, Key = number> extends ContainerIterator<Key, T> {
     return target;
   }
 
-  private _isRoot(
+  protected _isRoot(
     node: BSNode<Key, T>
   ): node is BSNode<Key, T> & { parent: null; type: BSNodeType.ROOT } {
     return node.type === BSNodeType.ROOT;
   }
 
-  private _notRoot(node: BSNode<Key, T>): node is BSNode<Key, T> & {
+  protected _notRoot(node: BSNode<Key, T>): node is BSNode<Key, T> & {
     parent: BSNode<Key, T>;
     type: BSNodeType.LEFT | BSNodeType.RIGHT;
   } {
     return !this._isRoot(node);
   }
 
-  private _findNode(key: Key) {
+  protected _findNode(key: Key) {
     let current = this._root;
     while (current) {
       const comp = this._comparer(key, current.key);
@@ -188,7 +188,7 @@ export class BSTree<T, Key = number> extends ContainerIterator<Key, T> {
     return null;
   }
 
-  private _preorder(callback: (value: T, key: Key) => void) {
+  protected _preorder(callback: (value: T, key: Key) => void) {
     let current = this._root;
     const stack: BSNode<Key, T>[] = [];
     while (current || stack.length) {
@@ -203,7 +203,7 @@ export class BSTree<T, Key = number> extends ContainerIterator<Key, T> {
     }
   }
 
-  private _inorder(callback: (value: T, key: Key) => void) {
+  protected _inorder(callback: (value: T, key: Key) => void) {
     let current = this._root;
     const stack: BSNode<Key, T>[] = [];
     while (current || stack.length) {
@@ -217,7 +217,7 @@ export class BSTree<T, Key = number> extends ContainerIterator<Key, T> {
     }
   }
 
-  private _postorder(callback: (value: T, key: Key) => void) {
+  protected _postorder(callback: (value: T, key: Key) => void) {
     let visited: BSNode<Key, T> | null = null;
     let current = this._root;
     const stack: BSNode<Key, T>[] = [];
@@ -240,7 +240,7 @@ export class BSTree<T, Key = number> extends ContainerIterator<Key, T> {
     }
   }
 
-  private _order(callback: (value: T, key: Key) => void) {
+  protected _order(callback: (value: T, key: Key) => void) {
     if (!this._root) return;
     const queue: BSNode<Key, T>[] = [this._root];
     while (queue.length) {

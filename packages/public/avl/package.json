@@ -28,6 +28,7 @@
   "author": "Lrk",
   "license": "MIT",
   "dependencies": {
+    "@dsti/bstree": "workspace:^",
     "@dsti/shared": "workspace:^"
   },
   "buildOptions": {

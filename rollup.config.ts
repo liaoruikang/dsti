@@ -62,7 +62,7 @@ const createConfig = (
           );
         }
       });
-  else
+  else if (!dev)
     external = Object.keys(pkg.dependencies ?? {}).filter(
       dep => !pkg.buildOptions?.internal?.includes(dep)
     );
@@ -71,26 +71,19 @@ const createConfig = (
     input,
     external,
     output,
-    plugins
+    plugins: [
+      nodeResolve(),
+      typescript({
+        tsconfig: './tsconfig.app.json'
+      }),
+      ...plugins
+    ]
   };
 };
 
 export default defineConfig([
-  createConfig('iife', [
-    nodeResolve(),
-    typescript({
-      tsconfig: './tsconfig.app.json'
-    })
-  ]),
-  createConfig(
-    ['cjs', 'esm'],
-    [
-      nodeResolve(),
-      typescript({
-        tsconfig: './tsconfig.app.json'
-      })
-    ]
-  ),
+  createConfig('iife'),
+  createConfig(['cjs', 'esm']),
   createConfig(
     {
       file: `${outDir}/index.d.ts`

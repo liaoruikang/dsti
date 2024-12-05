@@ -32,6 +32,7 @@
   "license": "MIT",
   "dependencies": {
     "@dsti/avl": "workspace:^",
+    "@dsti/bstree": "workspace:^",
     "@dsti/linkedlist": "workspace:^",
     "@dsti/queue": "workspace:^",
     "@dsti/stack": "workspace:^"
